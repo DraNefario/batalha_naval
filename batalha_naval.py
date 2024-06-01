@@ -77,4 +77,48 @@ tabuleiro_modificado_computador = trocar_valores(tabuleiro_computador, posicoes_
 print("\nTabuleiro do Computador:")
 imprimir_matriz(tabuleiro_modificado_computador)
 
+def comparar_posicoes(posicoes_computador, ataque_usuario1):
+    posicoes_corretas = []
+    for posicao in ataque_usuario1:
+        if posicao in posicoes_computador:
+            posicoes_corretas.append(posicao)
+    return posicoes_corretas
 
+def ataque_usuario():
+    while True:
+        try:
+            entrada = input("Digite a posição como uma sequência de dois dígitos (ex: 01 para a posição (0,1)): ")
+            if len(entrada) != 2:
+                print("Número incorreto de dígitos. Certifique-se de digitar duas coordenadas.")
+                continue
+            linha = int(entrada[0])
+            coluna = int(entrada[1])
+            if 0 <= linha < 10 and 0 <= coluna < 10:
+                return (linha, coluna)
+            else:
+                print(f"Posição fora dos limites: ({linha},{coluna}). Digite valores entre 0 e 9.")
+        except ValueError:
+            print("Entrada inválida. Por favor, insira os valores no formato correto.")
+
+
+def escolher_ataque_aleatorio():
+    posicoes = []
+    for i in range(1):
+        linha = random.randint(0, 9)
+        coluna = random.randint(0, 9)
+        posicoes.append((linha, coluna))
+    return posicoes
+
+ataque_robo = escolher_ataque_aleatorio()
+
+print(posicoes_computador)
+
+ataque_usuario1 = ataque_usuario()
+
+posicoes_corretas_usuario = comparar_posicoes(posicoes_computador, ataque_usuario1)
+
+posicoes_corretas_robo = comparar_posicoes(posicoes_jogador_1, ataque_robo)
+
+print("Posições corretas encontradas:", posicoes_corretas_usuario)
+
+print("Posições corretas encontradas:", posicoes_corretas_robo)
