@@ -2,49 +2,42 @@ import random
 
 # Função para criar uma matriz 10x10 preenchida com zeros
 def criar_matriz_10x10():
-    matriz = []
-    for i in range(10):
-        linha = []
-        for j in range(10):
-            linha.append(0)  # Inicializa com 0
-        matriz.append(linha)
-    return matriz
+    return [[0 for _ in range(10)] for _ in range(10)]
 
 # Função para pedir as posições das embarcações ao jogador
 def pedir_posicoes():
     posicoes = []
-    while len(posicoes) < 5 or len(posicoes) > 10:
-        posicoes = []
-        print("Digite entre 5 e 10 posições como uma sequência de dígitos (ex: 0102030405 para as posições (0,1), (0,2), (0,3), (0,4), (0,5)):")
-        entrada = input("Digite as posições (ou 'sair' para terminar): ")
-        if entrada.lower() == 'sair' and len(posicoes) >= 5:
-            break
-        try:
-            if len(entrada) % 2 != 0:
-                print("Número ímpar de dígitos. Certifique-se de digitar pares de coordenadas.")
-                continue
-            for i in range(0, len(entrada), 2):
-                linha = int(entrada[i])
-                coluna = int(entrada[i + 1])
+    print("Digite as posições das embarcações. Você precisa inserir entre 5 e 10 posições.")
+    for i in range(1, 11):
+        if i > 5:
+            continuar = input("Deseja inserir outra embarcação? (s/n): ").strip().lower()
+            if continuar != 's':
+                break
+        while True:
+            try:
+                linha = int(input(f"Embarcação {i} - Linha (0-9): "))
+                coluna = int(input(f"Embarcação {i} - Coluna (0-9): "))
                 if 0 <= linha < 10 and 0 <= coluna < 10:
-                    posicoes.append((linha, coluna))
+                    if (linha, coluna) not in posicoes:
+                        posicoes.append((linha, coluna))
+                        break
+                    else:
+                        print("Essa posição já foi escolhida. Escolha outra posição.")
                 else:
-                    print(f"Posição fora dos limites: ({linha},{coluna}). Digite valores entre 0 e 9.")
-            if len(posicoes) < 5:
-                print("Você deve inserir no mínimo 5 posições.")
-        except ValueError:
-            print("Entrada inválida. Por favor, insira os valores no formato correto.")
+                    print("Posição fora dos limites. Digite valores entre 0 e 9.")
+            except ValueError:
+                print("Entrada inválida. Por favor, insira os valores no formato correto.")
     return posicoes
 
 # Função para escolher posições aleatórias para o computador
 def escolher_posicoes_aleatorias():
     num_posicoes = random.randint(5, 10)
-    posicoes = []
-    for i in range(num_posicoes):
+    posicoes = set()
+    while len(posicoes) < num_posicoes:
         linha = random.randint(0, 9)
         coluna = random.randint(0, 9)
-        posicoes.append((linha, coluna))
-    return posicoes
+        posicoes.add((linha, coluna))
+    return list(posicoes)
 
 # Função para trocar os valores da matriz nas posições indicadas
 def trocar_valores(matriz, posicoes, valor=3):
@@ -112,7 +105,7 @@ def mostrar_acertos(tabuleiro_usuario, tabuleiro_inimigo, acertos):
         linha, coluna = posicao
         print(f"Você acertou o inimigo na posição ({linha}, {coluna})!")
 
-# Funçao para iniciar o jogo
+# Função para iniciar o jogo
 def jogar():
     # Criação dos tabuleiros do jogador e do computador
     tabuleiro_jogador = criar_matriz_10x10()
@@ -140,7 +133,7 @@ def jogar():
             print("Acertou!")
             tabuleiro_modificado_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
             mostrar_acertos(tabuleiro_modificado_jogador, tabuleiro_modificado_computador, posicoes_corretas_usuario)
-            if not posicoes_computador:
+            if not any(tabuleiro_modificado_computador[i][j] == 3 for i in range(10) for j in range(10)):
                 print("Você destruiu todas as embarcações do computador. Você venceu!")
                 break
         else:
@@ -155,7 +148,7 @@ def jogar():
             print("O computador acertou um de seus navios!")
             tabuleiro_modificado_jogador[ataque_computador[0]][ataque_computador[1]] = "X"
             mostrar_acertos(tabuleiro_modificado_jogador, tabuleiro_modificado_computador, posicoes_corretas_robo)
-            if not posicoes_jogador:
+            if not any(tabuleiro_modificado_jogador[i][j] == 3 for i in range(10) for j in range(10)):
                 print("O computador destruiu todas as suas embarcações. Você perdeu!")
                 break
         else:
