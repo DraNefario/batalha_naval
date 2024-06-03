@@ -1,5 +1,6 @@
 import random
 
+#Função para criar uma matriz 10x10 preenchida com zeros
 def criar_matriz_10x10():
     matriz = []
     for i in range(10):
@@ -9,6 +10,7 @@ def criar_matriz_10x10():
         matriz.append(linha)
     return matriz
 
+#Função para pedir as posições das embarcações ao jogador
 def pedir_posicoes():
     posicoes = []
     while len(posicoes) < 5 or len(posicoes) > 10:
@@ -34,7 +36,7 @@ def pedir_posicoes():
             print("Entrada inválida. Por favor, insira os valores no formato correto.")
     return posicoes
 
-
+#Função para escolher posições aleatórias para o computador
 def escolher_posicoes_aleatorias():
     num_posicoes = random.randint(5, 10)
     posicoes = []
@@ -44,39 +46,57 @@ def escolher_posicoes_aleatorias():
         posicoes.append((linha, coluna))
     return posicoes
 
-
+#Função para trocar os valores da matriz nas posições indicadas
 def trocar_valores(matriz, posicoes, valor=3):
     for linha, coluna in posicoes:
         matriz[linha][coluna] = valor
     return matriz
 
+#Função para imprimir a matriz no console
 def imprimir_matriz(matriz):
     for linha in matriz:
         print(" ".join(str(elemento) for elemento in linha))
 
+#Função para imprimir o tabuleiro sem revelar as posições das embarcações
+def imprimir_tabuleiro(matriz):
+    for linha in matriz:
+        linha_formatada = []
+        for elemento in linha:
+            if elemento == 1:
+                linha_formatada.append("O")
+            elif elemento == 0:
+                linha_formatada.append("-")
+            elif elemento == "X":
+                linha_formatada.append("X")
+            elif elemento == "A":
+                linha_formatada.append("A")
+        print(" ".join(linha_formatada))
+
+#Criação dos tabuleiros do jogador e do computador
 tabuleiro_jogador_1 = criar_matriz_10x10()
 tabuleiro_computador = criar_matriz_10x10()
 
-# Escolher posições aleatórias pelo computador
-posicoes_computador = escolher_posicoes_aleatorias()
-
-# Pedir posições ao usuário
+#Pedir posições ao usuário
 posicoes_jogador_1 = pedir_posicoes()
 
-# Trocando os valores na matriz
+#Trocar os valores na matriz do jogador
 tabuleiro_modificado_jogador_1 = trocar_valores(tabuleiro_jogador_1, posicoes_jogador_1)
 
-# Imprimindo a matriz do jogador 1
+#Imprimir a matriz do jogador 1
 print("Tabuleiro do Jogador 1:")
-imprimir_matriz(tabuleiro_modificado_jogador_1)
+imprimir_tabuleiro(tabuleiro_modificado_jogador_1)
 
-# Matriz do computador
+#Escolher posições aleatórias para o computador
+posicoes_computador = escolher_posicoes_aleatorias()
+
+#Trocar os valores na matriz do computador
 tabuleiro_modificado_computador = trocar_valores(tabuleiro_computador, posicoes_computador)
 
-# Imprimindo a matriz do computador
+#Imprimir a matriz do computador
 print("\nTabuleiro do Computador:")
-imprimir_matriz(tabuleiro_modificado_computador)
+imprimir_tabuleiro(tabuleiro_modificado_computador)
 
+#Função para comparar as posições de ataque com as posições das embarcações
 def comparar_posicoes(posicoes_computador, ataque_usuario1):
     posicoes_corretas = []
     for posicao in ataque_usuario1:
@@ -84,6 +104,7 @@ def comparar_posicoes(posicoes_computador, ataque_usuario1):
             posicoes_corretas.append(posicao)
     return posicoes_corretas
 
+#Função para realizar o ataque do jogador
 def ataque_usuario():
     while True:
         try:
@@ -100,25 +121,25 @@ def ataque_usuario():
         except ValueError:
             print("Entrada inválida. Por favor, insira os valores no formato correto.")
 
-
+#Função para escolher um ataque aleatório para o computador
 def escolher_ataque_aleatorio():
-    posicoes = []
-    for i in range(1):
-        linha = random.randint(0, 9)
-        coluna = random.randint(0, 9)
-        posicoes.append((linha, coluna))
-    return posicoes
+    linha = random.randint(0, 9)
+    coluna = random.randint(0, 9)
+    return (linha, coluna)
 
+#Escolha do ataque aleatório do computador
 ataque_robo = escolher_ataque_aleatorio()
 
-print(posicoes_computador)
-
+#Realização do ataque do jogador
 ataque_usuario1 = ataque_usuario()
 
-posicoes_corretas_usuario = comparar_posicoes(posicoes_computador, ataque_usuario1)
+#Comparação das posições corretas do ataque do jogador
+posicoes_corretas_usuario = comparar_posicoes(posicoes_computador, [ataque_usuario1])
 
-posicoes_corretas_robo = comparar_posicoes(posicoes_jogador_1, ataque_robo)
+#Comparação das posições corretas do ataque do computador
+posicoes_corretas_robo = comparar_posicoes(posicoes_jogador_1, [ataque_robo])
 
-print("Posições corretas encontradas:", posicoes_corretas_usuario)
+#Impressão das posições corretas encontradas
+print("Posições corretas encontradas pelo jogador:", posicoes_corretas_usuario)
 
-print("Posições corretas encontradas:", posicoes_corretas_robo)
+print("Posições corretas encontradas pelo computador:", posicoes_corretas_robo)
