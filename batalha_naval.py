@@ -6,7 +6,7 @@ def criar_matriz_10x10():
     for i in range(10):
         linha = []
         for j in range(10):
-            linha.append(0)  # Inicializa com 0
+            linha.append(0)  #Inicializa com 0
         matriz.append(linha)
     return matriz
 
