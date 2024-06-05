@@ -1,31 +1,21 @@
 # Batalha Naval (Grupo 1)
 
-Este é um jogo de Jokenpô (pedra, papel ou tesoura) desenvolvido em Python baseado nas instruções da professora Marina, oferecendo 3 modos de jogo: humano x humano, humano x máquina e máquina x máquina. O programa possibilita que você jogue quantas vezes quiser, e ao solicitar para encerrar o programa, ele irá mostrar a pontuação dos jogadores.
+Desenvolvimento de um jogo (Batalha Naval) programado em Python utilizando os conceitos aprendidos em sala
+Orientadora: Marina de Lara
+Projeto: PjBL 2
+
+# O que é Batalha Naval?
+
+A Batalha Naval é um clássico jogo de tabuleiro de estratégia para dois jogadores, frequentemente jogado tanto em versões físicas quanto digitais. A essência do jogo está na habilidade dos jogadores em ocultar seus navios e ao mesmo tempo descobrir as posições dos navios adversários, criando uma emocionante combinação de sorte e estratégia.
+
+# Requisitos para o funcionamento do jogo
 
 
-# Estrutura inicial do código contendo: 
-
-texto
-
-texo
-
-texto
+# Estruturação do Código
 
 
-![image](https://github.com/DraNefario/jokenpo6.pjbl/assets/162203993/d7ed6611-d1f7-4c49-abce-fa1d0bfca464)
+# Conceitos utilizados
 
-
-# Exemplo do modo de jogo humano x máquina contendo:
-
-texto
-
-texto
-
-texto
-
-![image](https://github.com/DraNefario/jokenpo6.pjbl/assets/162203993/0b3008e5-cd7c-4385-8bfc-1ca82a3227dc) 
-
-![image](https://github.com/DraNefario/jokenpo6.pjbl/assets/162203993/a5b93afa-a88e-4cd6-8c0d-b6a0f8485873)
 
 # Autores:
 André Luís Scharaiber Alves
