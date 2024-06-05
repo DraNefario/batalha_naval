@@ -12,19 +12,12 @@ def imprimir_matriz(matriz):
 def pedir_posicoes():
     posicoes = []
 
-    for _ in range(10):
+    for i in range(1, 11):
         while True:
-            entrada = input("Digite a posição das embarcaçoes (ou 'sair' para terminar): ")
-            if entrada.lower() == 'sair':
-                quit()
-
             try:
-                if len(entrada) != 2:
-                    print("Número incorreto de dígitos. Certifique-se de digitar duas coordenadas.")
-                    continue
-
-                linha = int(entrada[0])
-                coluna = int(entrada[1])
+                linha = int(input(f"Posicione sua embarcação {i} - linha (de 0 a 9): "))
+                coluna = int(input(f"Posicione sua embarcação {i} - coluna (de 0 a 9): "))
+                
                 if 0 <= linha < 10 and 0 <= coluna < 10:
                     posicoes.append((linha, coluna))
                     break
