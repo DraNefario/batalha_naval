@@ -1,7 +1,9 @@
 # Batalha Naval (Grupo 1)
 
 Desenvolvimento de um jogo (Batalha Naval) programado em Python utilizando os conceitos aprendidos em sala
+
 Orientadora: Marina de Lara
+
 Projeto: PjBL 2
 
 # O que é Batalha Naval?
