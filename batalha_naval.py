@@ -16,7 +16,8 @@ def pedir_posicoes():
         while True:
             entrada = input("Digite a posição das embarcaçoes (ou 'sair' para terminar): ")
             if entrada.lower() == 'sair':
-                return posicoes
+                quit()
+
 
             try:
                 if len(entrada) != 2:
@@ -86,6 +87,8 @@ def mostrar_acertos(tabuleiro_usuario, tabuleiro_inimigo, acertos):
 def jogar():
     tabuleiro_jogador = criar_matriz_10x10()
     tabuleiro_computador = criar_matriz_10x10()
+    tela_jogador = criar_matriz_10x10()
+    tela_computador = criar_matriz_10x10()
 
     def imprimir_mensagem(texto):
         print("--------------------------------------------------------------------------")
@@ -100,7 +103,7 @@ def jogar():
 
     while True:
         imprimir_mensagem("Tabuleiro do Computador")
-        imprimir_matriz(tabuleiro_computador)
+        imprimir_matriz(tela_computador)
         print("Embarcações restantes:", contar_embarcacoes_restantes(tabuleiro_computador))
 
         imprimir_mensagem("Tabuleiro do Jogador")
@@ -112,10 +115,13 @@ def jogar():
         posicoes_corretas_usuario = comparar_posicoes(posicoes_computador, [ataque_jogador])
         if posicoes_corretas_usuario:
             imprimir_mensagem("Acertou!")
+            tela_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
             tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
-            mostrar_acertos(tabuleiro_jogador, tabuleiro_computador, posicoes_corretas_usuario)
+            mostrar_acertos(tela_jogador, tela_computador, posicoes_corretas_usuario)
             if contar_embarcacoes_restantes(tabuleiro_computador) == 0:
                 imprimir_mensagem("Você destruiu todas as embarcações do computador. Você venceu!")
+                print(f"Jogo deselvolvido por: André Luís, Danillo, Samuel e Thomas")
+                print(f"Obrigado por jogar nosso jogo!")
                 break
         else:
             imprimir_mensagem("Errou!")
@@ -129,9 +135,11 @@ def jogar():
         if posicoes_corretas_robo:
             imprimir_mensagem("O computador acertou um de seus navios!")
             tabuleiro_jogador[ataque_computador[0]][ataque_computador[1]] = "X"
-            mostrar_acertos(tabuleiro_jogador, tabuleiro_computador, posicoes_corretas_robo)
+            mostrar_acertos(tela_jogador, tela_computador, posicoes_corretas_robo)
             if contar_embarcacoes_restantes(tabuleiro_jogador) == 0:
                 imprimir_mensagem("O computador destruiu todas as suas embarcações. Você perdeu!")
+                print(f"Jogo deselvolvido por: André Luís, Danillo, Samuel e Thomas")
+                print(f"Obrigado por jogar nosso jogo!")
                 break
         else:
             imprimir_mensagem("O computador errou o ataque.")
