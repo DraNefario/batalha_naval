@@ -20,7 +20,16 @@ A Batalha Naval é um clássico jogo de tabuleiro de estratégia para dois jogad
 
 # Conceitos utilizados
 1. Estruturas de repetição (for, while)
-2. 
+2. Biblioteca random
+3. Funções
+4. Matrizes
+5. Bloco "try"
+6. Bloco "Except"
+7. Estruturas condicionais (if, elif, else)
+8. Exceção "ValueError"
+9. Operadores (not, and, not in, ...)
+10. Variáveis Booleanas
+11. Instrução "break"
 
 
 # Autores:
