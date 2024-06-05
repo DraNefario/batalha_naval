@@ -76,7 +76,6 @@ def mostrar_acertos(tabuleiro_inimigo, acertos):
 def jogar():
     tabuleiro_jogador = criar_matriz_10x10()
     tabuleiro_computador = criar_matriz_10x10()
-    tela_jogador = criar_matriz_10x10()
     tela_computador = criar_matriz_10x10()
 
     def imprimir_mensagem(texto):
@@ -90,13 +89,19 @@ def jogar():
     posicoes_computador = escolher_posicoes_aleatorias()
     tabuleiro_computador = trocar_valores(tabuleiro_computador, posicoes_computador)
 
+    print("\n")
+    imprimir_mensagem("                           Bem vindo ao nosso \n                           -->BATALHA NAVAL<--\n                       vc provavelmente vai perder\n                              UAHAHAHHAHAHA")
+    print("\n")
+
     while True:
         imprimir_mensagem("Tabuleiro do Computador")
         imprimir_matriz(tela_computador)
+        print("--------------------------------------------------------------------------")
         print("Embarcações restantes:", contar_embarcacoes_restantes(tabuleiro_computador))
-
+        print("\n")
         imprimir_mensagem("Tabuleiro do Jogador")
         imprimir_matriz(tabuleiro_jogador)
+        print("--------------------------------------------------------------------------")
         print("Embarcações restantes:", contar_embarcacoes_restantes(tabuleiro_jogador))
         print("\n")
 
@@ -105,6 +110,7 @@ def jogar():
         tela_computador[ataque_jogador[0]][ataque_jogador[1]] = "O"
         tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] = "O"
         if posicoes_corretas_usuario:
+            print("\n")
             imprimir_mensagem("Acertou!")
             tela_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
             tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
@@ -115,7 +121,8 @@ def jogar():
                 print(f"Obrigado por jogar nosso jogo!")
                 break
         else:
-            print("\nNão foi dessa vez!\n")
+            print("\n")
+            imprimir_mensagem("Não foi dessa vez!")
 
         # Ataque do computador
         while True:
@@ -129,6 +136,7 @@ def jogar():
 
         posicoes_corretas_robo = comparar_posicoes(posicoes_jogador, [ataque_computador])
         if posicoes_corretas_robo:
+            print("\n")
             imprimir_mensagem("Computador acertou!")
             tabuleiro_jogador[ataque_computador[0]][ataque_computador[1]] = "X"
             mostrar_acertos(tabuleiro_jogador, posicoes_corretas_robo)
@@ -138,7 +146,8 @@ def jogar():
                 print(f"Obrigado por jogar nosso jogo!")
                 break
         else:
-            print("O computador errou o ataque.")
+            print("\n")
+            imprimir_mensagem("O computador errou o ataque.")
 
 # Iniciar o jogo
 jogar()
