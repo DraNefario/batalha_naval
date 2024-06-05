@@ -11,11 +11,10 @@ def imprimir_matriz(matriz):
 
 def pedir_posicoes():
     posicoes = []
-    print("Digite a posição como uma sequência de dois dígitos (ex: 01 para a posição (0,1)): ")
 
     for _ in range(10):
         while True:
-            entrada = input("Digite a posição (ou 'sair' para terminar): ")
+            entrada = input("Digite a posição das embarcaçoes (ou 'sair' para terminar): ")
             if entrada.lower() == 'sair':
                 return posicoes
 
@@ -74,15 +73,12 @@ def escolher_ataque_aleatorio():
     coluna = random.randint(0, 9)
     return (linha, coluna)
 
+
 def mostrar_acertos(tabuleiro_usuario, tabuleiro_inimigo, acertos):
-    print("Tabuleiro do Inimigo:")
     for linha in range(10):
         for coluna in range(10):
             if (linha, coluna) in acertos:
                 tabuleiro_inimigo[linha][coluna] = "X"
-    imprimir_matriz(tabuleiro_inimigo)
-    print("Tabuleiro do Usuário:")
-    imprimir_matriz(tabuleiro_usuario)
     for posicao in acertos:
         linha, coluna = posicao
         print(f"Você acertou o inimigo na posição ({linha}, {coluna})!")
@@ -96,7 +92,6 @@ def jogar():
         print(texto)
         print("--------------------------------------------------------------------------\n")
 
-    print("Digite as posições para o seu tabuleiro:")
     posicoes_jogador = pedir_posicoes()
     tabuleiro_jogador = trocar_valores(tabuleiro_jogador, posicoes_jogador)
 
@@ -111,13 +106,13 @@ def jogar():
         imprimir_mensagem("Tabuleiro do Jogador")
         imprimir_matriz(tabuleiro_jogador)
         print("Embarcações restantes:", contar_embarcacoes_restantes(tabuleiro_jogador))
+        print("\n")
 
         ataque_jogador = ataque_usuario()
         posicoes_corretas_usuario = comparar_posicoes(posicoes_computador, [ataque_jogador])
         if posicoes_corretas_usuario:
             imprimir_mensagem("Acertou!")
             tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
-            print("Embarcações restantes:", contar_embarcacoes_restantes(tabuleiro_computador))
             mostrar_acertos(tabuleiro_jogador, tabuleiro_computador, posicoes_corretas_usuario)
             if contar_embarcacoes_restantes(tabuleiro_computador) == 0:
                 imprimir_mensagem("Você destruiu todas as embarcações do computador. Você venceu!")
@@ -127,6 +122,9 @@ def jogar():
 
         # Ataque do computador
         ataque_computador = escolher_ataque_aleatorio()
+        linha_computador, coluna_computador = escolher_ataque_aleatorio()
+        print("O computador escolheu atacar na linha:", linha_computador)
+        print("O computador escolheu atacar na coluna:", coluna_computador)
         posicoes_corretas_robo = comparar_posicoes(posicoes_jogador, [ataque_computador])
         if posicoes_corretas_robo:
             imprimir_mensagem("O computador acertou um de seus navios!")
@@ -138,7 +136,6 @@ def jogar():
         else:
             imprimir_mensagem("O computador errou o ataque.")
 
-        print("Embarcações restantes do jogador:", contar_embarcacoes_restantes(tabuleiro_jogador))
 
 # Iniciar o jogo
 jogar()
