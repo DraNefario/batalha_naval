@@ -69,19 +69,21 @@ def escolher_ataque_aleatorio():
     coluna = random.randint(0, 9)
     return (linha, coluna)
 
-def mostrar_acertos(tabuleiro_inimigo, acertos):
+def mostrar_acertos(tela_computador, tabuleiro_computador, acertos):
     for linha, coluna in acertos:
-        tabuleiro_inimigo[linha][coluna] = "X"
+        tabuleiro_computador[linha][coluna] = "X"
+        tela_computador[linha][coluna] = "X"
+
+def imprimir_mensagem(texto):
+    print("--------------------------------------------------------------------------")
+    print(texto)
+    print("--------------------------------------------------------------------------\n")
 
 def jogar():
     tabuleiro_jogador = criar_matriz_10x10()
     tabuleiro_computador = criar_matriz_10x10()
     tela_computador = criar_matriz_10x10()
-
-    def imprimir_mensagem(texto):
-        print("--------------------------------------------------------------------------")
-        print(texto)
-        print("--------------------------------------------------------------------------\n")
+    tela_jogador = criar_matriz_10x10()
 
     posicoes_jogador = pedir_posicoes()
     tabuleiro_jogador = trocar_valores(tabuleiro_jogador, posicoes_jogador)
@@ -106,19 +108,24 @@ def jogar():
         print("\n")
 
         ataque_jogador = ataque_usuario()
+        if tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] in ["X", "O"]:
+                print("Você já posicionou uma embarcação nessa posição. Escolha outra.")
+                continue
+        
         posicoes_corretas_usuario = comparar_posicoes(posicoes_computador, [ataque_jogador])
         tela_computador[ataque_jogador[0]][ataque_jogador[1]] = "O"
         tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] = "O"
+
         if posicoes_corretas_usuario:
             print("\n")
             imprimir_mensagem("Você acertou!")
-            tela_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
-            tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
-            mostrar_acertos(tela_computador, posicoes_corretas_usuario)
+            # tela_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
+            # tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
+            mostrar_acertos(tabuleiro_computador, tela_computador, posicoes_corretas_usuario)
+
             if contar_embarcacoes_restantes(tabuleiro_computador) == 0:
                 imprimir_mensagem("Parabéns! Você afundou todas as embarcações do inimigo!")
-                print(f"Jogo desenvolvido por: André Luís, Danillo, Samuel e Thomas.")
-                print(f"Obrigado por jogar nosso jogo!")
+                imprimir_mensagem(f"Jogo desenvolvido por: André Luís, Danillo, Samuel e Thomas.\nObrigado por jogar nosso jogo!")
                 break
         else:
             print("\n")
@@ -138,12 +145,12 @@ def jogar():
         if posicoes_corretas_robo:
             print("\n")
             imprimir_mensagem("Computador acertou!")
-            tabuleiro_jogador[ataque_computador[0]][ataque_computador[1]] = "X"
-            mostrar_acertos(tabuleiro_jogador, posicoes_corretas_robo)
+            # tabuleiro_jogador[ataque_computador[0]][ataque_computador[1]] = "X"
+            mostrar_acertos(tela_jogador, tabuleiro_jogador, posicoes_corretas_robo)
+
             if contar_embarcacoes_restantes(tabuleiro_jogador) == 0:
                 imprimir_mensagem("Você perdeu! O computador destruiu todas as suas embarcações.")
-                print(f"Jogo desenvolvido por: André Luís, Danillo, Samuel e Thomas.")
-                print(f"Obrigado por jogar nosso jogo!")
+                imprimir_mensagem(f"Jogo desenvolvido por: André Luís, Danillo, Samuel e Thomas.\nObrigado por jogar nosso jogo!")
                 break
         else:
             print("\n")
