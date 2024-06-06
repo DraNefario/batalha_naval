@@ -32,7 +32,7 @@ A Batalha Naval é um clássico jogo de tabuleiro de estratégia para dois jogad
 6. Estruturas condicionais (if, elif, else)
     - Controlam o fluxo do jogo com base nas ações dos jogadores e nos resultados dos ataques, determinando se um ataque acertou uma embarcação, se o jogo acabou, etc.
 7. Exceção "ValueError"
-    - Captura erros de entrada quando os jogadores fornecem valores inválidos para as posições das embarcações ou para os ataques.
+    - Procura erros de entrada quando os jogadores fornecem valores inválidos para as posições das embarcações ou para os ataques.
 8. Operadores (not, and, not in, ...)
     - Foram usados em expressões lógicas para verificar se uma posição já foi atacada, se uma embarcação foi atingida, etc.
 9. Variáveis Booleanas
