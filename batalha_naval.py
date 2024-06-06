@@ -111,7 +111,7 @@ def jogar():
         tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] = "O"
         if posicoes_corretas_usuario:
             print("\n")
-            imprimir_mensagem("Acertou!")
+            imprimir_mensagem("Você acertou!")
             tela_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
             tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
             mostrar_acertos(tela_computador, posicoes_corretas_usuario)
