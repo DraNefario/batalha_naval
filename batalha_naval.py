@@ -122,7 +122,7 @@ def jogar():
                 break
         else:
             print("\n")
-            imprimir_mensagem("Não foi dessa vez!")
+            imprimir_mensagem("Você errou!")
 
         # Ataque do computador
         while True:
@@ -147,7 +147,7 @@ def jogar():
                 break
         else:
             print("\n")
-            imprimir_mensagem("O computador errou o ataque.")
+            imprimir_mensagem("Computador errou!")
 
 # Iniciar o jogo
 jogar()
