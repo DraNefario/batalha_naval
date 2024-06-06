@@ -112,8 +112,8 @@ def jogar():
         if posicoes_corretas_usuario:
             print("\n")
             imprimir_mensagem("Você acertou!")
-            # tela_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
-            # tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
+            tela_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
+            tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
             mostrar_acertos(tela_computador, posicoes_corretas_usuario)
             if contar_embarcacoes_restantes(tabuleiro_computador) == 0:
                 imprimir_mensagem("Parabéns! Você afundou todas as embarcações do inimigo!")
@@ -138,7 +138,7 @@ def jogar():
         if posicoes_corretas_robo:
             print("\n")
             imprimir_mensagem("Computador acertou!")
-             # tabuleiro_jogador[ataque_computador[0]][ataque_computador[1]] = "X"
+            tabuleiro_jogador[ataque_computador[0]][ataque_computador[1]] = "X"
             mostrar_acertos(tabuleiro_jogador, posicoes_corretas_robo)
             if contar_embarcacoes_restantes(tabuleiro_jogador) == 0:
                 imprimir_mensagem("Você perdeu! O computador destruiu todas as suas embarcações.")
