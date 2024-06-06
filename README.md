@@ -10,9 +10,24 @@ Projeto: PjBL 2
 
 A Batalha Naval é um clássico jogo de tabuleiro de estratégia para dois jogadores, frequentemente jogado tanto em versões físicas quanto digitais. A essência do jogo está na habilidade dos jogadores em ocultar seus navios e ao mesmo tempo descobrir as posições dos navios adversários, criando uma emocionante combinação de sorte e estratégia.
 
-# Requisitos solicitados para o funcionamento do jogo
-1. texto
-2. texto
+# Requisitos principais necessários solicitados para o funcionamento do jogo
+1. Modo Humano vS. Computador.
+2. Matriz 10x10.
+3. Feedbacks in-game impressos no console.
+4. Matriz com valores escondidos.
+5. Embarcações devem ocupar um único espaço na matriz.
+6. No mínimo 5 embarcações devem ser inseridas.
+7. Ao iniciar o jogo, o programa deve solicitar ao jogador a coordenada de suas embarcações.
+8. As coordenadas do computador devem ser definidas de maneira randômica.
+9. Coordenadas devem ser armazenadas em uma matriz escondida.
+10. Mostrar os tabuleiros do jogador e do computador sem revelar a posição do computador.
+11. Solicitar ataque do jogador através de linhas e colunas.
+12. As matrizes deverão ser atualizadas após cada ataque (jogador e computador).
+13. Não é permitido atacar uma mesma posição.
+14. Caso o ataque de uma embarcação seja bem-sucedido, o espaço acertado deve ser preenchido com 'X'
+15. Caso o ataque de uma embarcação não seja bem-sucedido, o espaço acertado deve ser preenchido com 'O' para indicar o local que foi atacado.
+16. Mostrar as embarcações restantes de cada jogador e suas atualizações a cada ataque.
+17. Quando um dos jogadores conseguir afundar toda a tropa do adversário, o programa deve informar a vitória do jogador vencedor, exibir agradecimentos ao jogador humano, os nomes dos integrantes da equipe e finalizar o programa.
 
 
 # Estruturação do Código
