@@ -24,7 +24,7 @@ A Batalha Naval é um clássico jogo de tabuleiro de estratégia para dois jogad
 2. Biblioteca random
    - Utilizada para escolher posições aleatórias no tabuleiro durante a configuração das embarcações do computador e durante os ataques aleatórios.
 3. Funções
-   - São usadas para dividir o código em blocos reutilizáveis que executa todo o jogo, e outras funções auxiliares para pedir posições, fazer ataques, etc.
+   - Foram usadas para dividir o código em blocos reutilizáveis que executa todo o jogo, e outras funções auxiliares para pedir posições, fazer ataques, etc.
 4. Matrizes
    - Representam os tabuleiros do jogo, permitindo armazenar e manipular as posições das embarcações e os resultados dos ataques.
 5. Blocos "try" e "Except"
