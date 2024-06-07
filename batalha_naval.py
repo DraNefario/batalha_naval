@@ -129,7 +129,7 @@ def jogar():
         #Ataque do jogador
         ataque_jogador = ataque_usuario()
         if tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] in ["X", "O"]:
-                print("Você já posicionou uma embarcação nessa posição. Escolha outra.")
+                print("Você já atacou esta posição. Escolha outra.")
                 continue
         
         posicoes_corretas_usuario = comparar_posicoes(posicoes_computador, [ataque_jogador])
