@@ -31,7 +31,7 @@ A Batalha Naval é um clássico jogo de tabuleiro de estratégia para dois jogad
 
 
 # Estruturação do Código
-![BN](https://github.com/DraNefario/batalha_naval/assets/164269710/9f90200f-2038-4ff5-857d-93f8fa393bc4)
+![BN](https://github.com/DraNefario/batalha_naval/assets/164269710/22b08d4b-9fce-4a87-9bb3-f6285ce8f94a)
 
 # Conceitos utilizados
 1. Estruturas de repetição (for, while)
