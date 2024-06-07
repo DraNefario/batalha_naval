@@ -6,6 +6,10 @@ Orientadora: Marina de Lara
 
 Projeto: PjBL 2
 
+# Vídeo: Code-Explaining e Running do jogo
+
+-LINK
+
 # O que é Batalha Naval?
 
 A Batalha Naval é um clássico jogo de tabuleiro de estratégia para dois jogadores, frequentemente jogado tanto em versões físicas quanto digitais. A essência do jogo está na habilidade dos jogadores em ocultar seus navios e ao mesmo tempo descobrir as posições dos navios adversários, criando uma emocionante combinação de sorte e estratégia.
