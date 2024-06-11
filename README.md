@@ -8,7 +8,7 @@ Projeto: PjBL 2
 
 # Vídeo: Code-Explaining e Running do jogo
 
-[-LINK](https://www.youtube.com/watch?v=LKVgD06NsxE)
+[Vídeo](https://www.youtube.com/watch?v=LKVgD06NsxE)
 
 # O que é Batalha Naval?
 
