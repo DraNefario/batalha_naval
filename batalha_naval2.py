@@ -1,4 +1,7 @@
 import random
+from colorama import Fore, Style, init
+
+init(autoreset=True)
 
 def criar_matriz_5x10():
     return [[0 for _ in range(10)] for _ in range(5)]
@@ -6,8 +9,16 @@ def criar_matriz_5x10():
 def imprimir_matriz(matriz):
     for linha in matriz:
         print("[", end="")
-        print(", ".join(str(elemento) for elemento in linha), end="")
-        print("]")
+        for elemento in linha:
+            if elemento == "X":
+                print(f"{Fore.RED}{elemento}", end=", ")
+            elif elemento == "O":
+                print(f"{Fore.YELLOW}{elemento}", end=", ")
+            elif elemento == 1:
+                print(f"{Fore.GREEN}{elemento}", end=", ")  # Cor verde para o número "1"
+            else:
+                print(f"{elemento}", end=", ")
+        print("\b\b]")
 
 def verificar_espaco(matriz, linha, coluna, tamanho, orientacao):
     linhas = len(matriz)
@@ -189,16 +200,16 @@ def jogar():
             if tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] == 1:
                 tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
                 tela_computador[ataque_jogador[0]][ataque_jogador[1]] = "X"
-                imprimir_mensagem("Você acertou!")
+                imprimir_mensagem(Fore.GREEN + "Você acertou!")
 
                 if contar_embarcacoes_restantes(tabuleiro_computador) == 0:
-                    imprimir_mensagem("Parabéns! Você afundou todas as embarcações do inimigo!")
+                    imprimir_mensagem(Fore.GREEN + "Parabéns! Você afundou todas as embarcações do inimigo!")
                     imprimir_mensagem(f"Jogo desenvolvido por: André Luís, Danillo, Samuel e Thomas.\nObrigado por jogar nosso jogo!")
                     return
             else:
                 tabuleiro_computador[ataque_jogador[0]][ataque_jogador[1]] = "O"
                 tela_computador[ataque_jogador[0]][ataque_jogador[1]] = "O"
-                imprimir_mensagem("Você errou!")
+                imprimir_mensagem(Fore.RED + "Você errou!")
                 break
 
         while True:
@@ -211,16 +222,16 @@ def jogar():
         if tabuleiro_jogador[ataque_computador[0]][ataque_computador[1]] == 1:
             tabuleiro_jogador[ataque_computador[0]][ataque_computador[1]] = "X"
             tela_jogador[ataque_computador[0]][ataque_computador[1]] = "X"
-            imprimir_mensagem("Computador acertou!")
+            imprimir_mensagem(Fore.RED + "Computador acertou!")
 
             if contar_embarcacoes_restantes(tabuleiro_jogador) == 0:
-                imprimir_mensagem("Você perdeu! O computador destruiu todas as suas embarcações.")
+                imprimir_mensagem(Fore.RED + "Você perdeu! O computador destruiu todas as suas embarcações.")
                 imprimir_mensagem(f"Jogo desenvolvido por: André Luís, Danillo, Samuel e Thomas.\nObrigado por jogar nosso jogo!")
                 return
         else:
             tabuleiro_jogador[ataque_computador[0]][ataque_computador[1]] = "O"
             tela_jogador[ataque_computador[0]][ataque_computador[1]] = "O"
-            imprimir_mensagem("Computador errou!")
+            imprimir_mensagem(Fore.GREEN + "Computador errou!")
 
 # Iniciar o jogo
 jogar()
