@@ -1,6 +1,7 @@
 import random
 from colorama import Fore, Style, init
 
+
 init(autoreset=True)
 
 def criar_matriz_5x10():
@@ -19,6 +20,58 @@ def imprimir_matriz(matriz, esconder=False):
             else:
                 print(f"{elemento}", end=", ")
         print("\b\b]")
+
+def pve_ataque(matriz_jogador, tela_computador, nivel_dificuldade):
+    if nivel_dificuldade == "facil":
+        ataque_aleatorio(matriz_jogador, tela_computador)
+    elif nivel_dificuldade == "medio":
+        ataque_medio(matriz_jogador, tela_computador)
+    elif nivel_dificuldade == "dificil":
+        ataque_dificil(matriz_jogador, tela_computador)
+
+def ataque_aleatorio(matriz_jogador, tela_computador):
+    while True:
+        linha = random.randint(0, 4)
+        coluna = random.randint(0, 9)
+        if matriz_jogador[linha][coluna] not in ["X", "O"]:
+            if matriz_jogador[linha][coluna] == 1:
+                matriz_jogador[linha][coluna] = "X"
+                tela_computador[linha][coluna] = "X"
+                imprimir_mensagem(Fore.GREEN + "Computador acertou!")
+            else:
+                matriz_jogador[linha][coluna] = "O"
+                tela_computador[linha][coluna] = "O"
+                imprimir_mensagem(Fore.RED + "Computador errou!")
+            break
+
+def ataque_medio(matriz_jogador, tela_computador):
+    for linha in range(5):
+        for coluna in range(10):
+            if matriz_jogador[linha][coluna] == "X":
+                adjacentes = [(linha+1, coluna), (linha-1, coluna), (linha, coluna+1), (linha, coluna-1)]
+                random.shuffle(adjacentes)
+                for lin, col in adjacentes:
+                    if 0 <= lin < 5 and 0 <= col < 10 and matriz_jogador[lin][col] not in ["X", "O"]:
+                        if matriz_jogador[lin][col] == 1:
+                            matriz_jogador[lin][col] = "X"
+                            tela_computador[lin][col] = "X"
+                            imprimir_mensagem(Fore.GREEN + "Computador acertou!")
+                        else:
+                            matriz_jogador[lin][col] = "O"
+                            tela_computador[lin][col] = "O"
+                            imprimir_mensagem(Fore.RED + "Computador errou!")
+                        return
+    ataque_aleatorio(matriz_jogador, tela_computador)
+
+def ataque_dificil(matriz_jogador, tela_computador):
+    for linha in range(5):
+        for coluna in range(10):
+            if matriz_jogador[linha][coluna] == 1:
+                matriz_jogador[linha][coluna] = "X"
+                tela_computador[linha][coluna] = "X"
+                imprimir_mensagem(Fore.GREEN + "Computador acertou!")
+                return
+    ataque_aleatorio(matriz_jogador, tela_computador)
 
 def verificar_espaco(matriz, linha, coluna, tamanho, orientacao):
     linhas = len(matriz)
@@ -123,7 +176,7 @@ def pedir_posicoes(nome_jogador):
 def contar_embarcacoes_restantes(matriz):
     return sum(linha.count(1) for linha in matriz)
 
-def ataque_usuario(nome_jogador):
+def ataque_usuario(nome_jogador, tabuleiro_jogador):
     while True:
         try:
             print(f"{nome_jogador}, escolha sua posição de ataque:")
@@ -131,11 +184,21 @@ def ataque_usuario(nome_jogador):
             coluna = int(input("Coluna (de 0 a 9): "))
 
             if 0 <= linha < 5 and 0 <= coluna < 10:
-                return (linha, coluna)
+                if tabuleiro_jogador[linha][coluna] in ["X", "O"]:
+                    print("Você já atacou esta posição. Escolha outra.")
+                    continue
+
+                if tabuleiro_jogador[linha][coluna] == 1:
+                    tabuleiro_jogador[linha][coluna] = "X"
+                    return (linha, coluna), True  # Retorna a posição do ataque e que acertou
+                else:
+                    tabuleiro_jogador[linha][coluna] = "O"
+                    return (linha, coluna), False  # Retorna a posição do ataque e que errou
             else:
                 print("Posição fora dos limites. Digite valores válidos.")
         except ValueError:
             print("Entrada inválida. Por favor, insira os valores no formato correto.")
+
 
 def imprimir_mensagem(texto):
     print("--------------------------------------------------------------------------")
@@ -164,6 +227,11 @@ def jogar():
     print("Escolha o modo de jogo: (1) PvP (2) PvE")
     modo = int(input("Modo: "))
 
+    if modo == 2:
+        print("Escolha a dificuldade: (1) Fácil (2) Médio (3) Difícil")
+        dificuldade = int(input("Dificuldade: "))
+        nivel_dificuldade = ["facil", "medio", "dificil"][dificuldade - 1]
+
     tabuleiro_jogador1 = criar_matriz_5x10()
     tabuleiro_jogador2 = criar_matriz_5x10()
     tela_jogador1 = criar_matriz_5x10()
@@ -177,8 +245,6 @@ def jogar():
         tabuleiro_jogador2 = pedir_posicoes("Jogador 2")
     else:  # PvE
         tabuleiro_jogador2 = pve_posicionamento()
-    print("\n\n")
-    imprimir_mensagem("                           Bem vindo ao nosso \n                           -->BATALHA NAVAL<--")
 
     while True:
         imprimir_mensagem("Tabuleiro do Jogador 2")
@@ -192,26 +258,18 @@ def jogar():
         print("Embarcações restantes do Jogador 1:", contar_embarcacoes_restantes(tabuleiro_jogador1))
         print("\n")
 
-        while True:
-            ataque_jogador1 = ataque_usuario("Jogador 1")
-            if tabuleiro_jogador2[ataque_jogador1[0]][ataque_jogador1[1]] in ["X", "O"]:
-                print("Você já atacou esta posição. Escolha outra.")
-                continue
-            
-            if tabuleiro_jogador2[ataque_jogador1[0]][ataque_jogador1[1]] == 1:
-                tabuleiro_jogador2[ataque_jogador1[0]][ataque_jogador1[1]] = "X"
-                tela_jogador2[ataque_jogador1[0]][ataque_jogador1[1]] = "X"
-                imprimir_mensagem(Fore.GREEN + "Jogador 1 acertou!")
+        ataque_jogador1, acertou = ataque_usuario("Jogador 1", tabuleiro_jogador2)
+        if acertou:
+            tela_jogador2[ataque_jogador1[0]][ataque_jogador1[1]] = "X"
+            imprimir_mensagem(Fore.GREEN + "Jogador 1 acertou!")
+        else:
+            tela_jogador2[ataque_jogador1[0]][ataque_jogador1[1]] = "O"
+            imprimir_mensagem(Fore.RED + "Jogador 1 errou!")
 
-                if contar_embarcacoes_restantes(tabuleiro_jogador2) == 0:
-                    imprimir_mensagem(Fore.GREEN + "Parabéns, Jogador 1! Você afundou todas as embarcações do Jogador 2!")
-                    imprimir_mensagem(f"Jogo desenvolvido por: André Luís, Danillo, Samuel e Thomas.\nObrigado por jogar nosso jogo!")
-                    return
-            else:
-                tabuleiro_jogador2[ataque_jogador1[0]][ataque_jogador1[1]] = "O"
-                tela_jogador2[ataque_jogador1[0]][ataque_jogador1[1]] = "O"
-                imprimir_mensagem(Fore.RED + "Jogador 1 errou!")
-                break
+        if contar_embarcacoes_restantes(tabuleiro_jogador2) == 0:
+            imprimir_mensagem(Fore.GREEN + "Parabéns, Jogador 1! Você afundou todas as embarcações do Jogador 2!")
+            imprimir_mensagem(f"Jogo desenvolvido por: André Luís, Danillo, Samuel e Thomas.\nObrigado por jogar nosso jogo!")
+            return
 
         if modo == 1:  # PvP
             imprimir_mensagem("Tabuleiro do Jogador 1")
@@ -225,28 +283,21 @@ def jogar():
             print("Embarcações restantes do Jogador 2:", contar_embarcacoes_restantes(tabuleiro_jogador2))
             print("\n")
 
-            while True:
-                ataque_jogador2 = ataque_usuario("Jogador 2")
-                if tabuleiro_jogador1[ataque_jogador2[0]][ataque_jogador2[1]] in ["X", "O"]:
-                    print("Você já atacou esta posição. Escolha outra.")
-                    continue
-                
-                if tabuleiro_jogador1[ataque_jogador2[0]][ataque_jogador2[1]] == 1:
-                    tabuleiro_jogador1[ataque_jogador2[0]][ataque_jogador2[1]] = "X"
-                    tela_jogador1[ataque_jogador2[0]][ataque_jogador2[1]] = "X"
-                    imprimir_mensagem(Fore.GREEN + "Jogador 2 acertou!")
+            ataque_jogador2, acertou = ataque_usuario("Jogador 2", tabuleiro_jogador1)
+            if acertou:
+                tela_jogador1[ataque_jogador2[0]][ataque_jogador2[1]] = "X"
+                imprimir_mensagem(Fore.GREEN + "Jogador 2 acertou!")
+            else:
+                tela_jogador1[ataque_jogador2[0]][ataque_jogador2[1]] = "O"
+                imprimir_mensagem(Fore.RED + "Jogador 2 errou!")
 
-                    if contar_embarcacoes_restantes(tabuleiro_jogador1) == 0:
-                        imprimir_mensagem(Fore.GREEN + "Parabéns, Jogador 2! Você afundou todas as embarcações do Jogador 1!")
-                        imprimir_mensagem(f"Jogo desenvolvido por: André Luís, Danillo, Samuel e Thomas.\nObrigado por jogar nosso jogo!")
-                        return
-                else:
-                    tabuleiro_jogador1[ataque_jogador2[0]][ataque_jogador2[1]] = "O"
-                    tela_jogador1[ataque_jogador2[0]][ataque_jogador2[1]] = "O"
-                    imprimir_mensagem(Fore.RED + "Jogador 2 errou!")
-                    break
+            if contar_embarcacoes_restantes(tabuleiro_jogador1) == 0:
+                imprimir_mensagem(Fore.GREEN + "Parabéns, Jogador 2! Você afundou todas as embarcações do Jogador 1!")
+                imprimir_mensagem(f"Jogo desenvolvido por: André Luís, Danillo, Samuel e Thomas.\nObrigado por jogar nosso jogo!")
+                return
         else:  # PvE
             pve_ataque(tabuleiro_jogador1, tela_jogador1)
+
             if contar_embarcacoes_restantes(tabuleiro_jogador1) == 0:
                 imprimir_mensagem(Fore.GREEN + "Parabéns, Computador! Você afundou todas as embarcações do Jogador 1!")
                 imprimir_mensagem(f"Jogo desenvolvido por: André Luís, Danillo, Samuel e Thomas.\nObrigado por jogar nosso jogo!")
